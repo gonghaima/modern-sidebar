@@ -72,3 +72,42 @@ function Sidebar() {
 export default Sidebar
 ```
 
+Now I’m going to install a CSS library, but you can actually achieve the same working functionality of the sidebar that we will be building without it. The reason I’m doing this is that I like seeing the additional ripple effects in addition to having icons readily available to use.
+
+```javascript
+npm install @material-ui/core @material-ui/icons
+```
+
+Once that is installed, we need to think of a base structure in the user interface that our sidebar will be built upon. A solution is to use the unordered list (<ul>) element that renders list items (<li>). We will import List and ListItem from @material-ui/core since the List component is essentially a ul element, and the ListItem component is essentially a li.
+
+Let's start off hardcoding a couple of items in the sidebar to visualize how this might look like to boost our confidence. Sometimes a little extra confidence can help improve our productivity:
+
+```javascript
+import React from 'react'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+
+function Sidebar() {
+  return (
+    <List disablePadding dense>
+      <ListItem button>
+        <ListItemText>Home</ListItemText>
+      </ListItem>
+      <ListItem button>
+        <ListItemText>Billing</ListItemText>
+      </ListItem>
+      <ListItem button>
+        <ListItemText>Settings</ListItemText>
+      </ListItem>
+    </List>
+  )
+}
+
+export default Sidebar
+```
+
+disablePadding and dense were used to slightly shrink the size of each of the items, and the button prop was used to add the stunning ripple effect.
+This is what we have so far:
+
+![sidebar](md/sidebar.gif)
