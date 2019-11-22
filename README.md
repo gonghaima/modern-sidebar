@@ -27,3 +27,17 @@ Here is a basic example of how you can extend the sidebar component from this po
 ![desk](md/actions.gif)
 
 Without further ado, let’s get started.
+
+In this tutorial, we are going to quickly generate a React project with create-react-app.
+
+Go ahead and create a project using the command below. For this tutorial i’ll call our project modern-sidebar.
+
+```javascript
+npx create-react-app modern-sidebar
+```
+
+Now go into the directory once it’s done:
+
+```javascript
+cd modern-sidebar
+```
