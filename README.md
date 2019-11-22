@@ -22,3 +22,8 @@ For example, if we look at the image below inside the red circle, the Editors pa
 
 You will see by the end of this post that this seemingly complicated sidebar is actually under 50 lines of code. What?!
 
+Here is a basic example of how you can extend the sidebar component from this post to be a little more stylish while still retaining the clean feel of it:
+
+![desk](md/actions.gif)
+
+Without further ado, let’s get started.
