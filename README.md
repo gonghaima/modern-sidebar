@@ -15,3 +15,10 @@ Today we will be building a modern sidebar in react using recursion. Recursion i
 Sidebars are indeed essential to a web page, even if their level of attention does not come first. This is because they can help users navigate in different ways, such as content, that they may be interested in as opposed to a logical navigational menu.
 
 But why would we even want to use recursion for sidebars? What difference does it make as opposed to writing out your sidebar items manually? If you’ve browsed through the internet for a while, you might have come across a website’s sidebar and realized that some sidebar items have subsections. Some sites have sidebars that hide or render certain items based on the page route the user navigated to. That is powerful!
+
+For example, if we look at the image below inside the red circle, the Editors part is an item of the sidebar, and the three items following immediately below (Code Editor, Markdown, Text Editor) are the subsections:
+
+![desk](md/menu-sample.jpg)
+
+You will see by the end of this post that this seemingly complicated sidebar is actually under 50 lines of code. What?!
+
