@@ -41,3 +41,34 @@ Now go into the directory once it’s done:
 ```javascript
 cd modern-sidebar
 ```
+
+Inside the main entry src/index.js we're going to clean it up a bit so we can focus on the component alone:
+
+```javascript
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import './styles.css'
+import * as serviceWorker from './serviceWorker'
+ReactDOM.render(<App />, document.getElementById('root'))
+serviceWorker.unregister()
+```
+
+Now create src/App.js:
+
+```javascript
+import React from 'react'
+const App = () => <div />
+export default App
+```
+
+App will be importing and using our Sidebar component by creating Sidebar.js, so lets go ahead and create that:
+
+```javascript
+import React from 'react'
+function Sidebar() {
+  return null
+}
+export default Sidebar
+```
+
