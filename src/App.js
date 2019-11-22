@@ -1,3 +1,4 @@
 import React from 'react'
-const App = () => <div />
+import Sidebar from "./Sidebar";
+const App = () => <div><Sidebar /></div>
 export default App
