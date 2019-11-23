@@ -1,21 +1,16 @@
-
 import React from 'react'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 
-function Sidebar() {
+function Sidebar({ items }) {
     return (
         <List disablePadding dense>
-            <ListItem button>
-                <ListItemText>Home</ListItemText>
-            </ListItem>
-            <ListItem button>
-                <ListItemText>Billing</ListItemText>
-            </ListItem>
-            <ListItem button>
-                <ListItemText>Settings</ListItemText>
-            </ListItem>
+            {items.map(({ label, name, ...rest }) => (
+                <ListItem key={name} button {...rest}>
+                    <ListItemText>{label}</ListItemText>
+                </ListItem>
+            ))}
         </List>
     )
 }
