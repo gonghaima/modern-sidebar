@@ -78,7 +78,7 @@ Now I’m going to install a CSS library, but you can actually achieve the same 
 npm install @material-ui/core @material-ui/icons
 ```
 
-Once that is installed, we need to think of a base structure in the user interface that our sidebar will be built upon. A solution is to use the unordered list (<ul>) element that renders list items (<li>). We will import List and ListItem from @material-ui/core since the List component is essentially a ul element, and the ListItem component is essentially a li.
+Once that is installed, we need to think of a base structure in the user interface that our sidebar will be built upon. A solution is to use the unordered list (```<ul>```) element that renders list items (```<li>```). We will import List and ListItem from @material-ui/core since the List component is essentially a ul element, and the ListItem component is essentially a li.
 
 Let's start off hardcoding a couple of items in the sidebar to visualize how this might look like to boost our confidence. Sometimes a little extra confidence can help improve our productivity:
 
@@ -111,3 +111,51 @@ disablePadding and dense were used to slightly shrink the size of each of the it
 This is what we have so far:
 
 ![sidebar](md/sidebar.gif)
+
+Now that we have boosted our confidence, let’s go ahead and define props.items, which Sidebar will consume to render its items.
+With that said, we’re also going to expect an items prop, which is an array of objects representing each item in the sidebar menu. We want to keep the functionality as simple as possible or else we could quickly overcomplicate the component.
+Let’s first create items in the App component and pass it as props.items to Sidebar:
+
+```javascript
+import React from 'react'
+import Sidebar from './Sidebar'
+
+const items = [
+  { name: 'home', label: 'Home' },
+  { name: 'billing', label: 'Billing' },
+  { name: 'settings', label: 'Settings' },
+]
+
+function App() {
+  return (
+    <div>
+      <Sidebar items={items} />
+    </div>
+  )
+}
+
+export default App
+```
+
+We will now update the Sidebar component to reflect this array structure:
+
+```javascript
+import React from 'react'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+
+function Sidebar({ items }) {
+  return (
+    <List disablePadding dense>
+      {items.map(({ label, name, ...rest }) => (
+        <ListItem key={name} button {...rest}>
+          <ListItemText>{label}</ListItemText>
+        </ListItem>
+      ))}
+    </List>
+  )
+}
+
+export default Sidebar
+```
