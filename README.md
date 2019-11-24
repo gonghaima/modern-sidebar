@@ -197,3 +197,82 @@ And inside index.css we defined the CSS styles for the sidebar class:
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 ```
+
+Material-UI actually uses its own CSS styling mechanism using the CSS-in-JS approach, but we will stick to regular CSS in this article to keep things from being unnecessarily complicated.
+
+We can already just leave it as basic as this and call it a day. However, it doesn’t support subitems. We want to be able to click on a sidebar item and have it drop down its list of sub items if it has any. Having subitems helps organize the sidebar by grouping additional items within another sidebar section:
+
+![alt subitem](md/subitem.gif)
+
+The way we are going to support this feature is to allow another option inside each sidebar item that the component will use to detect for its subitems. (Can you feel the recursion coming?)
+
+Let’s change up our items array in the App component to pass in subitems:
+
+```javascript
+import React from 'react'
+import Sidebar from './Sidebar'
+
+const items = [
+  { name: 'home', label: 'Home' },
+  {
+    name: 'billing',
+    label: 'Billing',
+    items: [
+      { name: 'statements', label: 'Statements' },
+      { name: 'reports', label: 'Reports' },
+    ],
+  },
+  {
+    name: 'settings',
+    label: 'Settings',
+    items: [{ name: 'profile', label: 'Profile' }],
+  },
+]
+
+function App() {
+  return (
+    <div>
+      <Sidebar items={items} />
+    </div>
+  )
+}
+
+export default App
+```
+
+To be able to render a sidebar item’s subitems, we’d have to watch for the items property when rendering sidebar items:
+
+```javascript
+function Sidebar({ items }) {
+  return (
+    <div className="sidebar">
+      <List disablePadding dense>
+        {items.map(({ label, name, items: subItems, ...rest }) => (
+          <ListItem style={{ paddingLeft: 18 }} key={name} button {...rest}>
+            <ListItemText>{label}</ListItemText>
+            {Array.isArray(subItems) ? (
+              <List disablePadding>
+                {subItems.map((subItem) => (
+                  <ListItem key={subItem.name} button>
+                    <ListItemText className="sidebar-item-text">
+                      {subItem.label}
+                    </ListItemText>
+                  </ListItem>
+                ))}
+              </List>
+            ) : null}
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  )
+}
+```
+
+And now… behold, our dazzling sidebar component!
+
+![alt sub items menu initial looking](md/subitems-initial.gif)
+
+If you haven’t caught on already, this is not the sidebar look that we want to achieve.
+
+Now, since we don’t want our users to hit their close button on their browser and never come back to our website, we need to figure out a way to make this look more appealing not only to the eyes but to the DOM as well.
