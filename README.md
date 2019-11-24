@@ -365,3 +365,88 @@ function Sidebar({ items }) {
   font-size: 0.8rem;
 }
 ```
+
+But, our sidebar component is supposed to be dynamic. Ideally, we want it to generate its items accordingly to the items passed in as props from the caller.
+
+We’re going to use a simple depth prop that the sidebar items will use, and based on the depth they can adjust their own spacing accordingly to depthno matter how far down the tree they're in. We're also going to extract out the sidebar item into its own component so that we can increase the depth without having to complicate it by introducing state logic.
+
+Here is the code:
+
+```javascript
+function SidebarItem({ label, items, depthStep = 10, depth = 0, ...rest }) {
+  return (
+    <>
+      <ListItem button dense {...rest}>
+        <ListItemText style={{ paddingLeft: depth * depthStep }}>
+          <span>{label}</span>
+        </ListItemText>
+      </ListItem>
+      {Array.isArray(items) ? (
+        <List disablePadding dense>
+          {items.map((subItem) => (
+            <SidebarItem
+              key={subItem.name}
+              depth={depth + 1}
+              depthStep={depthStep}
+              {...subItem}
+            />
+          ))}
+        </List>
+      ) : null}
+    </>
+  )
+}
+
+function Sidebar({ items, depthStep, depth }) {
+  return (
+    <div className="sidebar">
+      <List disablePadding dense>
+        {items.map((sidebarItem, index) => (
+          <SidebarItem
+            key={`${sidebarItem.name}${index}`}
+            depthStep={depthStep}
+            depth={depth}
+            {...sidebarItem}
+          />
+        ))}
+      </List>
+    </div>
+  )
+}
+```
+
+So what’s going on here?
+
+Well, we declared some powerful props to configure the sidebar pre-render phase such as depth and depthStep. SidebarItem was extracted out into its own component and inside its render block it uses depth to calculate its spacing. The higher the depth is, the deeper down in the tree they're located.
+
+That’s all possible because of this line:
+
+```javascript
+{
+  items.map((subItem) => (
+    <SidebarItem
+      key={subItem.name}
+      depth={depth + 1}
+      depthStep={depthStep}
+      {...subItem}
+    />
+  ))
+}
+```
+
+depth gets incremented by 1 every time a new list of subitems goes deeper.
+
+And the recursion exists inside SidebarItem because it calls itself until there is no longer a base case. In other words, when the array is empty this piece of code automatically stops:
+
+```javascript
+{
+  items.map((subItem) => (
+    <SidebarItem
+      key={subItem.name}
+      depth={depth + 1}
+      depthStep={depthStep}
+      {...subItem}
+    />
+  ))
+}
+```
