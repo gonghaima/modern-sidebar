@@ -276,3 +276,42 @@ And now… behold, our dazzling sidebar component!
 If you haven’t caught on already, this is not the sidebar look that we want to achieve.
 
 Now, since we don’t want our users to hit their close button on their browser and never come back to our website, we need to figure out a way to make this look more appealing not only to the eyes but to the DOM as well.
+
+“What do you mean the DOM,” you ask?
+
+Well, if you look closely, there’s a problem! If the user clicks on a subitem, the parent item rendering the subitem is also consuming the click handler since they are overlapping! This is bad and calls upon some nasty unexpected issues for the user’s experience.
+
+What we need to do is separate the parent from its children (the subitems) so that they render their subitems adjacently, so that mouse events do not clash:
+
+```javascript
+function Sidebar({ items }) {
+  return (
+    <div className="sidebar">
+      <List disablePadding dense>
+        {items.map(({ label, name, items: subItems, ...rest }) => (
+          <React.Fragment key={name}>
+            <ListItem style={{ paddingLeft: 18 }} button {...rest}>
+              <ListItemText>{label}</ListItemText>
+            </ListItem>
+            {Array.isArray(subItems) ? (
+              <List disablePadding>
+                {subItems.map((subItem) => (
+                  <ListItem key={subItem.name} button>
+                    <ListItemText className="sidebar-item-text">
+                      {subItem.label}
+                    </ListItemText>
+                  </ListItem>
+                ))}
+              </List>
+            ) : null}
+          </React.Fragment>
+        ))}
+      </List>
+    </div>
+  )
+}
+```
+
+Now we’re almost back in business!
+
+![alt sub1](md/sub1.gif)

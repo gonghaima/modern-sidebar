@@ -8,8 +8,10 @@ function Sidebar({ items }) {
         <div className="sidebar">
             <List disablePadding dense>
                 {items.map(({ label, name, items: subItems, ...rest }) => (
-                    <ListItem style={{ paddingLeft: 18 }} key={name} button {...rest}>
-                        <ListItemText>{label}</ListItemText>
+                    <React.Fragment key={name}>
+                        <ListItem style={{ paddingLeft: 18 }} button {...rest}>
+                            <ListItemText>{label}</ListItemText>
+                        </ListItem>
                         {Array.isArray(subItems) ? (
                             <List disablePadding>
                                 {subItems.map((subItem) => (
@@ -21,7 +23,7 @@ function Sidebar({ items }) {
                                 ))}
                             </List>
                         ) : null}
-                    </ListItem>
+                    </React.Fragment>
                 ))}
             </List>
         </div>
