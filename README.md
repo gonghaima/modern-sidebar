@@ -315,3 +315,53 @@ function Sidebar({ items }) {
 Now we’re almost back in business!
 
 ![alt sub1](md/sub1.gif)
+
+From the screenshot, it seems as though we have a new problem: the subitems are awkwardly larger than the top-level items. We must figure out a way to detect which ones are subitems and which ones are top-level ones.
+
+We can hardcode this and call it a day:
+
+```javascript
+function Sidebar({ items }) {
+  return (
+    <div className="sidebar">
+      <List disablePadding dense>
+        {items.map(({ label, name, items: subItems, ...rest }) => {
+          return (
+            <React.Fragment key={name}>
+              <ListItem style={{ paddingLeft: 18 }} button {...rest}>
+                <ListItemText>{label}</ListItemText>
+              </ListItem>
+              {Array.isArray(subItems) ? (
+                <List disablePadding dense>
+                  {subItems.map((subItem) => {
+                    return (
+                      <ListItem
+                        key={subItem.name}
+                        style={{ paddingLeft: 36 }}
+                        button
+                        dense
+                      >
+                        <ListItemText>
+                          <span className="sidebar-subitem-text">
+                            {subItem.label}
+                          </span>
+                        </ListItemText>
+                      </ListItem>
+                    )
+                  })}
+                </List>
+              ) : null}
+            </React.Fragment>
+          )
+        })}
+      </List>
+    </div>
+  )
+}
+```
+
+```css
+.sidebar-subitem-text {
+  font-size: 0.8rem;
+}
+```
