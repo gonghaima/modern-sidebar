@@ -14,7 +14,26 @@ const items = [
     {
         name: 'settings',
         label: 'Settings',
-        items: [{ name: 'profile', label: 'Profile' }],
+        items: [
+            { name: 'profile', label: 'Profile' },
+            { name: 'insurance', label: 'Insurance' },
+            {
+                name: 'notifications',
+                label: 'Notifications',
+                items: [
+                    { name: 'email', label: 'Email' },
+                    {
+                        name: 'desktop',
+                        label: 'Desktop',
+                        items: [
+                            { name: 'schedule', label: 'Schedule' },
+                            { name: 'frequency', label: 'Frequency' },
+                        ],
+                    },
+                    { name: 'sms', label: 'SMS' },
+                ],
+            },
+        ],
     },
 ]
 

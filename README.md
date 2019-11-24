@@ -450,3 +450,77 @@ And the recursion exists inside SidebarItem because it calls itself until there 
   ))
 }
 ```
+
+Let’s test the recursionized sidebar component out now:
+
+src/App.js
+
+```javascript
+const items = [
+  { name: 'home', label: 'Home' },
+  {
+    name: 'billing',
+    label: 'Billing',
+    items: [
+      { name: 'statements', label: 'Statements' },
+      { name: 'reports', label: 'Reports' },
+    ],
+  },
+  {
+    name: 'settings',
+    label: 'Settings',
+    items: [
+      { name: 'profile', label: 'Profile' },
+      { name: 'insurance', label: 'Insurance' },
+      {
+        name: 'notifications',
+        label: 'Notifications',
+        items: [
+          { name: 'email', label: 'Email' },
+          {
+            name: 'desktop',
+            label: 'Desktop',
+            items: [
+              { name: 'schedule', label: 'Schedule' },
+              { name: 'frequency', label: 'Frequency' },
+            ],
+          },
+          { name: 'sms', label: 'SMS' },
+        ],
+      },
+    ],
+  },
+]
+
+function App() {
+  return (
+    <div>
+      <Sidebar items={items} />
+    </div>
+  )
+}
+```
+
+![alt app data included](md/appDataIn.gif)
+
+And there we have it!
+
+Let’s play with depthStep a little and pass in a higher value:
+
+```javascript
+function App() {
+  return (
+    <div>
+      <Sidebar items={items} />
+    </div>
+  )
+}
+```
+
+![alt final look](md/final.gif)
+
+## Conclusion
+
+You can optionally download the repo from the github link and see additional features of the sidebar. It features more fancy functionality, such as adding an additional layer in rendering (sidebar sections) which leads to (dividers) as separators, sidebar expansion/collapsing, icons, etc.
+
+I hope you found this to be valuable and look out for more in the future!
