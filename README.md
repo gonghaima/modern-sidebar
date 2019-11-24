@@ -159,3 +159,41 @@ function Sidebar({ items }) {
 
 export default Sidebar
 ```
+
+One thing you might have noticed is that our sidebar is just too dang big. Sidebars usually take up one side of the screen, so what we’re going to do is shrink its width to a suitable size. We will go ahead and put a max-widthof 200px on it. So we're going to create a div element that wraps our Listcomponent.
+
+The reason why we create another div element instead of directly applying the styles on the List component is because we don't want to make Listresponsible for the width size. This way, in the future we can choose to abstract the List into a reusable sidebar component where it is able to adapt to any size depending on the size of the parent element:
+
+Here is the Sidebar.js component:
+
+```javascript
+import React from 'react'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+
+function Sidebar({ items }) {
+  return (
+    <div className="sidebar">
+      <List disablePadding dense>
+        {items.map(({ label, name, ...rest }) => (
+          <ListItem key={name} button {...rest}>
+            <ListItemText>{label}</ListItemText>
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  )
+}
+
+export default Sidebar
+```
+
+And inside index.css we defined the CSS styles for the sidebar class:
+
+```css
+.sidebar {
+  max-width: 240px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+```
