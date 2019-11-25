@@ -521,6 +521,6 @@ function App() {
 
 ## Conclusion
 
-You can optionally download the repo from the github link and see additional features of the sidebar. It features more fancy functionality, such as adding an additional layer in rendering (sidebar sections) which leads to (dividers) as separators, sidebar expansion/collapsing, icons, etc.
+You can optionally download the repo from the [github link](https://github.com/jsmanifest/modern-sidebar) and see additional features of the sidebar. It features more fancy functionality, such as adding an additional layer in rendering (sidebar sections) which leads to (dividers) as separators, sidebar expansion/collapsing, icons, etc.
 
 I hope you found this to be valuable and look out for more in the future!
