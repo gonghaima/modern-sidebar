@@ -1,6 +1,8 @@
-# Create a Modern Dynamic Sidebar Menu in React Using Recursion
+# Create a Modern Dynamic Sidebar Menu in React Using Recursion 
 
 ## The power of recursion in React
+
+[Original article](https://medium.com/better-programming/create-a-modern-dynamic-sidebar-menu-in-react-using-recursion-f757135045bc)
 
 ![desk](md/desk.jpeg)
 
